@@ -101,8 +101,6 @@ int Date::getYear() const
     return year;
 }
 
-
-
 void Date::setDay(int d) {
     if (isValid(d, month, year)) day = d;
 }
@@ -115,4 +113,131 @@ void Date::setMonth(int m) {
 void Date::setYear(int y) {
     if (y >= 1 && day <= daysInMonth(month, y))
         year = y;
+}
+
+long long Date::toDays() const {
+  long long days = 0;
+
+  for (int y = 1; y < year; y++)
+    days += isLeap(y) ? 366 : 365;
+
+  for (int m = 1; m < month; m++)
+    days += daysInMonth(m, year);
+
+  days += day;
+  return days;
+}
+
+void Date::fromDays(long long days) {
+  year = 1;
+  while (true) {
+    int dy = isLeap(year) ? 366 : 365;
+    if (days > dy) {
+      days -= dy;
+      year++;
+    }
+    else break;
+  }
+
+  month = 1;
+  while (true) {
+    int dm = daysInMonth(month, year);
+    if (days > dm) {
+      days -= dm;
+      month++;
+    }
+    else break;
+  }
+
+  day = (int)days;
+}
+
+Date Date::operator+(int d) const {
+  Date r = *this;
+  r.fromDays(r.toDays() + d);
+  return r;
+}
+
+Date Date::operator-(int d) const {
+  Date r = *this;
+  r.fromDays(r.toDays() - d);
+  return r;
+}
+
+Date& Date::operator+=(int d) {
+  fromDays(toDays() + d);
+  return *this;
+}
+
+Date& Date::operator-=(int d) {
+  fromDays(toDays() - d);
+  return *this;
+}
+
+long long Date::operator-(const Date& other) const {
+  return this->toDays() - other.toDays();
+}
+
+Date& Date::operator++() {
+  *this += 1;
+  return *this;
+}
+
+Date Date::operator++(int) {
+  Date tmp = *this;
+  *this += 1;
+  return tmp;
+}
+
+Date& Date::operator--() {
+  *this -= 1;
+  return *this;
+}
+
+Date Date::operator--(int) {
+  Date tmp = *this;
+  *this -= 1;
+  return tmp;
+}
+
+bool Date::operator==(const Date& o) const {
+  return day == o.day && month == o.month && year == o.year;
+}
+
+bool Date::operator!=(const Date& o) const {
+  return !(*this == o);
+}
+
+bool Date::operator<(const Date& o) const {
+  if (year != o.year) return year < o.year;
+  if (month != o.month) return month < o.month;
+  return day < o.day;
+}
+
+bool Date::operator>(const Date& o) const {
+  return o < *this;
+}
+
+bool Date::operator<=(const Date& o) const {
+  return !(*this > o);
+}
+
+bool Date::operator>=(const Date& o) const {
+  return !(*this < o);
+}
+
+ostream& operator<<(ostream& os, const Date& d) {
+  if (d.day < 10) os << "0";
+  os << d.day << ".";
+  if (d.month < 10) os << "0";
+  os << d.month << "." << d.year;
+  return os;
+}
+
+istream& operator>>(istream& is, Date& d) {
+  string s;
+  is >> s;
+  Date tmp(s);
+  d = tmp;
+  return is;
 }
