@@ -1,4 +1,4 @@
-#include "TriangleArray.h"
+﻿#include "TriangleArray.h"
 #include <cmath>
 
 TriangleArray::TriangleArray(int n) {

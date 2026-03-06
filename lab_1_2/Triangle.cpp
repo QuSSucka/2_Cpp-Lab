@@ -1,4 +1,4 @@
-#include "Triangle.h"
+﻿#include "Triangle.h"
 #include <cstdlib>
 
 bool Triangle::isValid(double x, double y, double z) const {
@@ -45,7 +45,7 @@ Triangle::Triangle(double x, double y, double z) {
 }
 
 void Triangle::print() const {
-  cout << "Triangle: " << a << ", " << b << ", " << c << " � ";
+  cout << "Triangle: " << a << ", " << b << ", " << c << " — ";
 
   switch (triangleType) {
   case ACUTE:  cout << "acute-angled"; break;

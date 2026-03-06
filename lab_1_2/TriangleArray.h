@@ -1,4 +1,4 @@
-#ifndef TRIANGLEARRAY_H
+﻿#ifndef TRIANGLEARRAY_H
 #define TRIANGLEARRAY_H
 
 #include "Triangle.h"

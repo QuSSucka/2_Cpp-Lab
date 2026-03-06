@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <locale.h>
 #include <climits>
 
@@ -24,9 +24,9 @@ int main() {
 
     int day, month, year;
     while (true) {
-        cout << "Ââåäèòå äàòó (äåíü ìåñÿö ãîä), íàïðèìåð: 15 3 2024 : ";
+        cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð°Ñ‚Ñƒ (Ð´ÐµÐ½ÑŒ Ð¼ÐµÑÑÑ† Ð³Ð¾Ð´), Ð½Ð°Ð¿Ñ€Ð¸Ð¼ÐµÑ€: 15 3 2024 : ";
         if (!(cin >> day >> month >> year)) {
-            cout << "Íåâåðíûé ââîä. Ââåäèòå òðè öåëûõ ÷èñëà.\n";
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‚Ñ€Ð¸ Ñ†ÐµÐ»Ñ‹Ñ… Ñ‡Ð¸ÑÐ»Ð°.\n";
             cin.clear();
             cin.ignore(INT_MAX, '\n');
             continue;
@@ -34,12 +34,12 @@ int main() {
 
         Date userDate(day, month, year);
         if (userDate.getDay() == day && userDate.getMonth() == month && userDate.getYear() == year) {
-            cout << "Ââåä¸ííàÿ äàòà êîððåêòíà: ";
+            cout << "Ð’Ð²ÐµÐ´Ñ‘Ð½Ð½Ð°Ñ Ð´Ð°Ñ‚Ð° ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð°: ";
             userDate.print();
             break;
         }
         else {
-            cout << "Íåâåðíàÿ äàòà. Ïîïðîáóéòå åù¸ ðàç.\n";
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ð°Ñ Ð´Ð°Ñ‚Ð°. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð·.\n";
         }
     }
 
