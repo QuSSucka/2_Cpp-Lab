@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include "Polinom.h"
 #include <cstdlib>
 #include <locale.h>
@@ -10,18 +10,18 @@ int main() {
   setlocale(LC_ALL, "");
   Polinom p;
 
-  cout << "Ââåäèòå ïîëèíîì:\n";
+  cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð»Ð¸Ð½Ð¾Ð¼:\n";
   p.read();
 
-  cout << "Âû ââåëè: ";
+  cout << "Ð’Ñ‹ Ð²Ð²ÐµÐ»Ð¸: ";
   p.print();
   cout << endl;
 
   double x;
-  cout << "Ââåäèòå x: ";
+  cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ x: ";
   cin >> x;
 
-  cout << "Çíà÷åíèå ïîëèíîìà: " << p.value(x) << endl;
+  cout << "Ð—Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¿Ð¾Ð»Ð¸Ð½Ð¾Ð¼Ð°: " << p.value(x) << endl;
 
   return 0;
 }

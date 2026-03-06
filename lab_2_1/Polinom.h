@@ -1,4 +1,4 @@
-#ifndef POLINOM_H
+﻿#ifndef POLINOM_H
 #define POLINOM_H
 
 class Polinom {

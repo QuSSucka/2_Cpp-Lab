@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <cmath>
 #include "Polinom.h"
 
@@ -84,7 +84,7 @@ double Polinom::value(double x) const {
 }
 
 void Polinom::read() {
-  cout << "Ââåäèòå ñòåïåíü ïîëèíîìà: ";
+  cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ Ð¿Ð¾Ð»Ð¸Ð½Ð¾Ð¼Ð°: ";
   int deg;
   cin >> deg;
 
@@ -93,10 +93,9 @@ void Polinom::read() {
   delete[] a;
   a = new double[n];
 
-  cout << "Ââåäèòå êîýôôèöèåíòû îò ñòàðøåãî ê ñâîáîäíîìó:\n";
+  cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾ÑÑ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚Ñ‹ Ð¾Ñ‚ ÑÑ‚Ð°Ñ€ÑˆÐµÐ³Ð¾ Ðº ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ð¼Ñƒ:\n";
 
   for (int i = deg; i >= 0; i--) {
     cin >> a[i];
   }
 }
-
