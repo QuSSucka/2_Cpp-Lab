@@ -1,4 +1,4 @@
-#include "Triangle.h"
+﻿#include "Triangle.h"
 #include <cstdlib>
 
 bool Triangle::isValid(double x, double y, double z) const {
@@ -45,7 +45,7 @@ Triangle::Triangle(double x, double y, double z) {
 }
 
 void Triangle::print() const {
-  cout << "Triangle: " << a << ", " << b << ", " << c << " � ";
+  cout << "Triangle: " << a << ", " << b << ", " << c << " — ";
 
   switch (triangleType) {
   case ACUTE:  cout << "acute-angled"; break;
@@ -78,3 +78,59 @@ bool Triangle::isSimilar(const Triangle& other) const {
 
   return fabs(k1 - k2) < 1e-6 && fabs(k2 - k3) < 1e-6;
 }
+
+bool Triangle::operator<(const Triangle& other) const {
+  return this->area() < other.area();
+}
+
+bool Triangle::operator<=(const Triangle& other) const {
+  return this->area() <= other.area();
+}
+
+bool Triangle::operator>(const Triangle& other) const {
+  return this->area() > other.area();
+}
+
+bool Triangle::operator>=(const Triangle& other) const {
+  return this->area() >= other.area();
+}
+
+bool Triangle::operator==(const Triangle& other) const {
+  return fabs(this->area() - other.area()) < 1e-6;
+}
+
+bool Triangle::operator!=(const Triangle& other) const {
+  return !(*this == other);
+}
+
+Triangle Triangle::operator*(double k) const {
+  return Triangle(a * k, b * k, c * k);
+}
+
+Triangle Triangle::operator/(double k) const {
+  return Triangle(a / k, b / k, c / k);
+}
+
+ostream& operator<<(ostream& os, const Triangle& t) {
+  os << "Triangle(" << t.a << ", " << t.b << ", " << t.c << ")";
+  return os;
+}
+
+istream& operator>>(istream& is, Triangle& t) {
+  
+  double x, y, z;
+  is >> x >> y >> z;
+
+  if (x + y > z && x + z > y && y + z > x) {
+    t.a = x;
+    t.b = y;
+    t.c = z;
+    t.determineType();
+  }
+  else {
+    throw invalid_argument("Такого треугольника не существует!");
+  }
+
+  return is;
+}
+

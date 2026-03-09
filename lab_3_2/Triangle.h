@@ -1,4 +1,4 @@
-#ifndef TRIANGLE_H
+﻿#ifndef TRIANGLE_H
 #define TRIANGLE_H
 
 #include <iostream>
@@ -32,6 +32,20 @@ public:
   double getA() const { return a; }
   double getB() const { return b; }
   double getC() const { return c; }
+
+  bool operator<(const Triangle& other) const;
+  bool operator<=(const Triangle& other) const;
+  bool operator>(const Triangle& other) const;
+  bool operator>=(const Triangle& other) const;
+  bool operator==(const Triangle& other) const;
+  bool operator!=(const Triangle& other) const;
+
+  Triangle operator*(double k) const;
+  Triangle operator/(double k) const;
+
+  friend ostream& operator<<(ostream& os, const Triangle& t);
+  friend istream& operator>>(istream& is, Triangle& t);
+
 };
 
 #endif
