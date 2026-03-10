@@ -46,7 +46,7 @@ int main() {
     Date a(10, 5, 2020);
     Date b(12, 5, 2020);
 
-    cout << a << " < " << b << " ?12 " << (a < b) << endl;
+    cout << a << " < " << b << " ? " << (a < b) << endl;
     cout << a << " > " << b << " ? " << (a > b) << endl;
     cout << a << " == " << b << " ? " << (a == b) << endl;
     cout << a << " != " << b << " ? " << (a != b) << endl;
