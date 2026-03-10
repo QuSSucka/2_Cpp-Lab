@@ -5,6 +5,7 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
+#include <stdexcept>
 
 using namespace std;
 
