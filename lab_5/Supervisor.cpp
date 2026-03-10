@@ -1,20 +1,16 @@
 ﻿#include "Supervisor.h"
-#include <iostream>
-using namespace std;
 
 Supervisor::Supervisor(const string& lastName,
   const string& firstName,
   double salary,
-  const Date& hireDate,
-  const Date& fireDate)
-  : Manager(lastName, firstName, "Supervisor", salary, hireDate, fireDate)
+  const Date& hireDate)
+  : Manager(lastName, firstName, "Supervisor", salary, hireDate)
 {
 }
 
 void Supervisor::evaluateManagers(vector<Manager*>& managers) const {
   cout << "\n===== Оценка менеджеров Supervisor'ом "
     << getLastName() << " =====\n";
-
   for (auto* mgr : managers) {
     if (mgr->allTasksOnTime()) {
       double mgrBonus = mgr->getSalary() * 0.2;
@@ -34,5 +30,7 @@ void Supervisor::evaluateManagers(vector<Manager*>& managers) const {
 
 void Supervisor::print() const {
   cout << "*** SUPERVISOR ***\n";
-  Manager::print();
+  Employee::print();           // <-- прыгаем через Manager
+  cout << "Бонус: " << getBonus() << " руб.\n";
 }
+

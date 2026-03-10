@@ -8,14 +8,13 @@ Employee::Employee(const string& lastName,
   const string& firstName,
   const string& position,
   double salary,
-  const Date& hireDate,
-  const Date& fireDate)
+  const Date& hireDate)
   : lastName(lastName),
   firstName(firstName),
   position(position),
   salary(salary),
   hireDate(hireDate),
-  fireDate(fireDate),
+  isFired(false),
   employeeID(++instanceCount)
 {
 }
@@ -28,6 +27,7 @@ string Employee::getPosition()   const { return position; }
 double Employee::getSalary()     const { return salary; }
 Date   Employee::getHireDate()   const { return hireDate; }
 Date   Employee::getFireDate()   const { return fireDate; }
+bool   Employee::getIsFired()    const { return isFired; }
 int    Employee::getEmployeeID() const { return employeeID; }
 
 int Employee::getInstanceCount() { return instanceCount; }
@@ -42,7 +42,11 @@ void Employee::setSalary(double v) {
 }
 
 void Employee::setHireDate(const Date& d) { hireDate = d; }
-void Employee::setFireDate(const Date& d) { fireDate = d; }
+
+void Employee::fire(const Date& d) {
+  fireDate = d;
+  isFired = true;
+}
 
 void Employee::print() const {
   cout << "=============================\n";
@@ -50,6 +54,9 @@ void Employee::print() const {
   cout << "ФИО:         " << lastName << " " << firstName << "\n";
   cout << "Должность:   " << position << "\n";
   cout << "Зарплата:    " << salary << " руб.\n";
-  cout << "Принят:      " << hireDate.toString() << "\n";
-  cout << "Уволен:      " << fireDate.toString() << "\n";
+  cout << "Принят:      " << hireDate << "\n";
+  if (isFired)
+    cout << "Уволен:      " << fireDate << "\n";
+  else
+    cout << "Уволен:      Работает\n";
 }

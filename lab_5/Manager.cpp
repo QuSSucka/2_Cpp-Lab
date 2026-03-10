@@ -18,13 +18,12 @@ bool Task::completedOnTime() const {
 }
 
 void Task::print() const {
-  cout << "  [Сотрудник] "
-    << employee->getLastName() << " "
-    << employee->getFirstName() << "\n";
+  cout << "  [Сотрудник] " << employee->getLastName()
+    << " " << employee->getFirstName() << "\n";
   cout << "  [Задача]    " << description << "\n";
-  cout << "  [Дедлайн]   " << deadline.toString() << "\n";
+  cout << "  [Дедлайн]   " << deadline << "\n";
   if (isDone) {
-    cout << "  [Выполнено] " << completedDate.toString()
+    cout << "  [Выполнено] " << completedDate
       << (completedOnTime() ? "  (в срок)" : "  (просрочено)")
       << "\n";
   }
@@ -38,9 +37,8 @@ Manager::Manager(const string& lastName,
   const string& firstName,
   const string& position,
   double salary,
-  const Date& hireDate,
-  const Date& fireDate)
-  : Employee(lastName, firstName, position, salary, hireDate, fireDate),
+  const Date& hireDate)
+  : Employee(lastName, firstName, position, salary, hireDate),
   bonus(0.0)
 {
 }

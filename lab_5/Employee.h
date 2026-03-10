@@ -4,13 +4,14 @@
 
 class Employee {
 private:
-  string lastName;
-  string firstName;
-  string position;
-  double      salary;
-  Date        hireDate;
-  Date        fireDate;
-  const int   employeeID;
+  string     lastName;
+  string     firstName;
+  string     position;
+  double     salary;
+  Date       hireDate;
+  Date       fireDate;
+  bool       isFired;       // флаг: уволен ли сотрудник
+  const int  employeeID;
 
   static int instanceCount;
 
@@ -19,8 +20,7 @@ public:
     const string& firstName,
     const string& position,
     double salary,
-    const Date& hireDate,
-    const Date& fireDate = Date());
+    const Date& hireDate);
 
   Employee(const Employee&) = delete;
   Employee& operator=(const Employee&) = delete;
@@ -31,10 +31,11 @@ public:
   string getLastName()   const;
   string getFirstName()  const;
   string getPosition()   const;
-  double      getSalary()     const;
-  Date        getHireDate()   const;
-  Date        getFireDate()   const;
-  int         getEmployeeID() const;
+  double getSalary()     const;
+  Date   getHireDate()   const;
+  Date   getFireDate()   const;
+  bool   getIsFired()    const;
+  int    getEmployeeID() const;
 
   static int getInstanceCount();
 
@@ -44,7 +45,9 @@ public:
   void setPosition(const string& v);
   void setSalary(double v);
   void setHireDate(const Date& d);
-  void setFireDate(const Date& d);
+
+  // Уволить сотрудника
+  void fire(const Date& d);
 
   virtual void print() const;
 };

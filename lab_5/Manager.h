@@ -1,19 +1,15 @@
 ﻿#pragma once
 #include <vector>
-#include <string>
 #include "Employee.h"
-#include "Date.h"
 
 struct Task {
   Employee* employee;
-  string description;
-  Date        deadline;
-  Date        completedDate;
-  bool        isDone;
+  string     description;
+  Date       deadline;
+  Date       completedDate;
+  bool       isDone;
 
-  Task(Employee* emp,
-    const string& desc,
-    const Date& dl);
+  Task(Employee* emp, const string& desc, const Date& dl);
 
   void complete(const Date& date);
   bool completedOnTime() const;
@@ -23,19 +19,16 @@ struct Task {
 class Manager : public Employee {
 private:
   vector<Task> tasks;
-  double            bonus;
+  double       bonus;
 
 public:
   Manager(const string& lastName,
     const string& firstName,
     const string& position,
     double salary,
-    const Date& hireDate,
-    const Date& fireDate = Date());
+    const Date& hireDate);
 
-  void   assignTask(Employee* emp,
-    const string& description,
-    const Date& deadline);
+  void   assignTask(Employee* emp, const string& description, const Date& deadline);
   void   completeTask(int index, const Date& completionDate);
 
   bool   allTasksOnTime() const;
