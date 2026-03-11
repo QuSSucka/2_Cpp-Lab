@@ -38,14 +38,14 @@ Polinom& Polinom::operator=(const Polinom& other) {
   return *this;
 }
 
-// Новый публичный метод для установки коэффициентов
 void Polinom::setCoeffs(int deg, const double* coeffs) {
   delete[] a;
   n = deg + 1;
   a = new double[n];
-  for (int i = 0; i <= deg; i++)
+  for (int i = 0; i < n; i++)
     a[i] = coeffs[i];
 }
+
 
 void Polinom::print() const {
   if (n == 0) { std::cout << "0"; return; }
