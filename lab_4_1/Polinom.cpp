@@ -1,7 +1,6 @@
 ﻿#include "Polinom.h"
 
-double Polinom::round2(double x)
-{
+double Polinom::round2(double x) {
   return floor(x * 100 + 0.5) / 100;
 }
 
@@ -31,53 +30,46 @@ Polinom::~Polinom() {
 
 Polinom& Polinom::operator=(const Polinom& other) {
   if (this == &other) return *this;
-
   delete[] a;
-
   n = other.n;
   a = new double[n];
   for (int i = 0; i < n; i++)
     a[i] = other.a[i];
-
   return *this;
 }
 
+// Новый публичный метод для установки коэффициентов
+void Polinom::setCoeffs(int deg, const double* coeffs) {
+  delete[] a;
+  n = deg + 1;
+  a = new double[n];
+  for (int i = 0; i <= deg; i++)
+    a[i] = coeffs[i];
+}
+
 void Polinom::print() const {
-  if (n == 0) {
-    cout << "0";
-    return;
-  }
+  if (n == 0) { std::cout << "0"; return; }
 
   bool first = true;
-
   for (int i = n - 1; i >= 0; i--) {
     double rounded = round2(a[i]);
     if (rounded == 0) continue;
-
-    if (!first) {
-      cout << (rounded > 0 ? "+" : "");
-    }
-
-    if (i == 0) {
-      cout << rounded;
-    }
+    if (!first) std::cout << (rounded > 0 ? "+" : "");
+    if (i == 0) std::cout << rounded;
     else if (i == 1) {
-      if (rounded == 1) cout << "x";
-      else if (rounded == -1) cout << "-x";
-      else cout << rounded << "x";
+      if (rounded == 1) std::cout << "x";
+      else if (rounded == -1) std::cout << "-x";
+      else std::cout << rounded << "x";
     }
     else {
-      if (rounded == 1) cout << "x^" << i;
-      else if (rounded == -1) cout << "-x^" << i;
-      else cout << rounded << "x^" << i;
+      if (rounded == 1) std::cout << "x^" << i;
+      else if (rounded == -1) std::cout << "-x^" << i;
+      else std::cout << rounded << "x^" << i;
     }
-
     first = false;
   }
-
-  if (first) cout << "0";
+  if (first) std::cout << "0";
 }
-
 
 double Polinom::value(double x) const {
   double result = 0;
@@ -87,26 +79,20 @@ double Polinom::value(double x) const {
 }
 
 void Polinom::read() {
-  cout << "Введите степень полинома: ";
+  std::cout << "Введите степень полинома: ";
   int deg;
-  cin >> deg;
-
-  n = deg + 1;
-
+  std::cin >> deg;
   delete[] a;
+  n = deg + 1;
   a = new double[n];
-
-  cout << "Введите коэффициенты от старшего к свободному:\n";
-
-  for (int i = deg; i >= 0; i--) {
-    cin >> a[i];
-  }
+  std::cout << "Введите коэффициенты от старшего к свободному:\n";
+  for (int i = deg; i >= 0; i--)
+    std::cin >> a[i];
 }
 
 Polinom Polinom::operator+(const Polinom& other) const {
-  int maxN = max(n, other.n);
+  int maxN = std::max(n, other.n);
   Polinom result(maxN);
-
   for (int i = 0; i < maxN; i++) {
     double a1 = (i < n ? a[i] : 0);
     double a2 = (i < other.n ? other.a[i] : 0);
@@ -116,9 +102,8 @@ Polinom Polinom::operator+(const Polinom& other) const {
 }
 
 Polinom Polinom::operator-(const Polinom& other) const {
-  int maxN = max(n, other.n);
+  int maxN = std::max(n, other.n);
   Polinom result(maxN);
-
   for (int i = 0; i < maxN; i++) {
     double a1 = (i < n ? a[i] : 0);
     double a2 = (i < other.n ? other.a[i] : 0);
@@ -129,25 +114,20 @@ Polinom Polinom::operator-(const Polinom& other) const {
 
 Polinom Polinom::operator*(const Polinom& other) const {
   Polinom result(n + other.n - 1);
-
   for (int i = 0; i < n; i++)
     for (int j = 0; j < other.n; j++)
       result.a[i + j] += a[i] * other.a[j];
-
   return result;
 }
 
 Polinom Polinom::operator/(const Polinom& other) const {
-  int maxN = max(n, other.n);
+  int maxN = std::max(n, other.n);
   Polinom result(maxN);
-
   for (int i = 0; i < maxN; i++) {
     double a1 = (i < n ? a[i] : 0);
     double a2 = (i < other.n ? other.a[i] : 0);
-
-    if (a2 == 0) {
-      throw invalid_argument("Ошибка: деление на коэффициент 0 в полиноме невозможно!");
-    }
+    if (a2 == 0)
+      throw std::invalid_argument("Ошибка: деление на коэффициент 0 в полиноме невозможно!");
     result.a[i] = a1 / a2;
   }
   return result;
@@ -172,26 +152,19 @@ Polinom Polinom::operator*(double k) const {
 }
 
 Polinom Polinom::operator/(double k) const {
-  if (k == 0) {
-    throw invalid_argument("Ошибка: деление полинома на 0 невозможно!");
-  }
-
+  if (k == 0)
+    throw std::invalid_argument("Ошибка: деление полинома на 0 невозможно!");
   Polinom r(*this);
-  for (int i = 0; i < n; i++) {
-    r.a[i] /= k;
-  }
+  for (int i = 0; i < n; i++) r.a[i] /= k;
   return r;
 }
-
 
 Polinom operator+(double k, const Polinom& p) {
   return p + k;
 }
 
 Polinom operator-(double k, const Polinom& p) {
-  Polinom r(p);
-  r.a[0] = k - r.a[0];
-  return r;
+  return (p * -1.0) + k;
 }
 
 Polinom operator*(double k, const Polinom& p) {
@@ -199,38 +172,27 @@ Polinom operator*(double k, const Polinom& p) {
 }
 
 Polinom operator/(double k, const Polinom& p) {
-  Polinom r(p);
-
-  for (int i = 0; i < p.n; i++) {
-    if (p.a[i] == 0) {
-      throw invalid_argument("Ошибка: деление числа на коэффициент 0 невозможно!");
-    }
-    r.a[i] = k / p.a[i];
+  int sz = p.getN();
+  double* tmp = new double[sz];
+  for (int i = 0; i < sz; i++) {
+    if (p.getCoeff(i) == 0)
+      throw std::invalid_argument("Ошибка: деление числа на коэффициент 0 невозможно!");
+    tmp[i] = k / p.getCoeff(i);
   }
-
+  Polinom r(tmp, sz);
+  delete[] tmp;
   return r;
 }
 
-
-ostream& operator<<(ostream& os, const Polinom& p) {
-  if (p.n == 0) {
-    os << "0";
-    return os;
-  }
+std::ostream& operator<<(std::ostream& os, const Polinom& p) {
+  if (p.getN() == 0) { os << "0"; return os; }
 
   bool first = true;
-
-  for (int i = p.n - 1; i >= 0; i--) {
-    double rounded = Polinom::round2(p.a[i]);
+  for (int i = p.getN() - 1; i >= 0; i--) {
+    double rounded = Polinom::round2(p.getCoeff(i));
     if (rounded == 0) continue;
-
-    if (!first) {
-      os << (rounded > 0 ? "+" : "");
-    }
-
-    if (i == 0) {
-      os << rounded;
-    }
+    if (!first) os << (rounded > 0 ? "+" : "");
+    if (i == 0) os << rounded;
     else if (i == 1) {
       if (rounded == 1) os << "x";
       else if (rounded == -1) os << "-x";
@@ -241,29 +203,23 @@ ostream& operator<<(ostream& os, const Polinom& p) {
       else if (rounded == -1) os << "-x^" << i;
       else os << rounded << "x^" << i;
     }
-
     first = false;
   }
-
   if (first) os << "0";
-
   return os;
 }
 
-
-
-istream& operator>>(istream& is, Polinom& p) {
+std::istream& operator>>(std::istream& is, Polinom& p) {
   int deg;
-  cout << "Введите степень полинома: ";
+  std::cout << "Введите степень полинома: ";
   is >> deg;
 
-  p.n = deg + 1;
-  delete[] p.a;
-  p.a = new double[p.n];
-
-  cout << "Введите коэффициенты от старшего к младшему:\n";
+  double* tmp = new double[deg + 1];
+  std::cout << "Введите коэффициенты от старшего к младшему:\n";
   for (int i = deg; i >= 0; i--)
-    is >> p.a[i];
+    is >> tmp[i];
 
+  p.setCoeffs(deg, tmp);
+  delete[] tmp;
   return is;
 }
