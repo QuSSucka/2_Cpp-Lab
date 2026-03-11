@@ -1,6 +1,8 @@
 ﻿#include "Triangle.h"
 #include <cstdlib>
 
+using namespace std;
+
 bool Triangle::isValid(double x, double y, double z) const {
   return (x + y > z && x + z > y && y + z > x);
 }
@@ -111,26 +113,24 @@ Triangle Triangle::operator/(double k) const {
   return Triangle(a / k, b / k, c / k);
 }
 
-ostream& operator<<(ostream& os, const Triangle& t) {
-  os << "Triangle(" << t.a << ", " << t.b << ", " << t.c << ")";
-  return os;
-}
-
-istream& operator>>(istream& is, Triangle& t) {
-  
-  double x, y, z;
-  is >> x >> y >> z;
-
-  if (x + y > z && x + z > y && y + z > x) {
-    t.a = x;
-    t.b = y;
-    t.c = z;
-    t.determineType();
+void Triangle::setSides(double x, double y, double z) {
+  if (isValid(x, y, z)) {
+    a = x; b = y; c = z;
+    determineType();
   }
   else {
     throw invalid_argument("Такого треугольника не существует!");
   }
-
-  return is;
 }
 
+ostream& operator<<(ostream& os, const Triangle& t) {
+  os << "Triangle(" << t.getA() << ", " << t.getB() << ", " << t.getC() << ")";
+  return os;
+}
+
+istream& operator>>(istream& is, Triangle& t) {
+  double x, y, z;
+  is >> x >> y >> z;
+  t.setSides(x, y, z);
+  return is;
+}
