@@ -185,41 +185,12 @@ Polinom operator/(double k, const Polinom& p) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Polinom& p) {
-  if (p.getN() == 0) { os << "0"; return os; }
-
-  bool first = true;
-  for (int i = p.getN() - 1; i >= 0; i--) {
-    double rounded = Polinom::round2(p.getCoeff(i));
-    if (rounded == 0) continue;
-    if (!first) os << (rounded > 0 ? "+" : "");
-    if (i == 0) os << rounded;
-    else if (i == 1) {
-      if (rounded == 1) os << "x";
-      else if (rounded == -1) os << "-x";
-      else os << rounded << "x";
-    }
-    else {
-      if (rounded == 1) os << "x^" << i;
-      else if (rounded == -1) os << "-x^" << i;
-      else os << rounded << "x^" << i;
-    }
-    first = false;
-  }
-  if (first) os << "0";
+  p.print();
   return os;
 }
 
 std::istream& operator>>(std::istream& is, Polinom& p) {
-  int deg;
-  std::cout << "Введите степень полинома: ";
-  is >> deg;
-
-  double* tmp = new double[deg + 1];
-  std::cout << "Введите коэффициенты от старшего к младшему:\n";
-  for (int i = deg; i >= 0; i--)
-    is >> tmp[i];
-
-  p.setCoeffs(deg, tmp);
-  delete[] tmp;
+  p.read();
   return is;
 }
+
