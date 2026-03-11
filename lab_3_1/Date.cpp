@@ -227,10 +227,10 @@ bool Date::operator>=(const Date& o) const {
 }
 
 ostream& operator<<(ostream& os, const Date& d) {
-  if (d.day < 10) os << "0";
-  os << d.day << ".";
-  if (d.month < 10) os << "0";
-  os << d.month << "." << d.year;
+  if (d.getDay() < 10) os << "0";
+  os << d.getDay() << ".";
+  if (d.getMonth() < 10) os << "0";
+  os << d.getMonth() << "." << d.getYear();
   return os;
 }
 

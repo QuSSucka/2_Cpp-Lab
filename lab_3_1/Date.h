@@ -1,7 +1,7 @@
 ﻿#pragma once
-
+#include <iostream>
 #include <string>
-using namespace std;
+//using namespace std;
 
 class Date {
 private:
@@ -21,7 +21,7 @@ private:
 public:
     Date();                      
     Date(int d, int m, int y);    
-    Date(const string& str);     
+    Date(const std::string& str);     
 
     void print() const;
 
@@ -51,9 +51,7 @@ public:
     bool operator>(const Date& other) const;
     bool operator<=(const Date& other) const;
     bool operator>=(const Date& other) const;
-
-    friend ostream& operator<<(ostream& os, const Date& d);
-    friend istream& operator>>(istream& is, Date& d);
-
-
 };
+
+ostream& operator<<(ostream& os, const Date& d);
+istream& operator>>(istream& is, Date& d);
