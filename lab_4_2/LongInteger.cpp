@@ -1,7 +1,6 @@
 ﻿#include "LongInteger.h"
-#include <string>
-#include <algorithm>
-#include <stdexcept>
+#include <cmath>
+
 using namespace std;
 
 // Сравнение абсолютных значений: -1, 0, 1
@@ -37,7 +36,7 @@ static void subAbs(const int* a, int sa, const int* b, int sb,
   for (int i = 0; i < sr; i++) {
     int diff = (i < sa ? a[i] : 0) - (i < sb ? b[i] : 0) - borrow;
     if (diff < 0) { diff += 10; borrow = 1; }
-    else            borrow = 0;
+    else borrow = 0;
     res[i] = diff;
   }
 }
@@ -48,8 +47,6 @@ void LongInteger::removeLeadingZeros() {
   if (size == 1 && digits[0] == 0)
     negative = false;
 }
-
-// конструкторы / деструктор
 
 LongInteger::LongInteger() : size(1), negative(false) {
   digits = new int[1]();
@@ -78,8 +75,6 @@ LongInteger::~LongInteger() {
   delete[] digits;
 }
 
-// set / print
-
 void LongInteger::set(const string& s) {
   delete[] digits;
   int start = 0;
@@ -101,8 +96,6 @@ void LongInteger::print() const {
     cout << digits[i];
 }
 
-// operator=
-
 LongInteger& LongInteger::operator=(const LongInteger& other) {
   if (this == &other) return *this;
   delete[] digits;
@@ -114,20 +107,16 @@ LongInteger& LongInteger::operator=(const LongInteger& other) {
   return *this;
 }
 
-// сложение / вычитание
-
 LongInteger LongInteger::operator+(const LongInteger& other) const {
   LongInteger result;
   delete[] result.digits;
 
   if (negative == other.negative) {
-    // одинаковые знаки — складываем абсолютные значения
     addAbs(digits, size, other.digits, other.size,
       result.digits, result.size);
     result.negative = negative;
   }
   else {
-    // разные знаки — вычитаем меньшее из большего
     int cmp = cmpAbs(digits, size, other.digits, other.size);
     if (cmp == 0) {
       result.digits = new int[1](); result.size = 1; result.negative = false;
@@ -154,22 +143,16 @@ LongInteger LongInteger::operator-(const LongInteger& other) const {
   return *this + tmp;
 }
 
-// 2) LongInteger ± int
 LongInteger LongInteger::operator+(int value) const { return *this + LongInteger(value); }
 LongInteger LongInteger::operator-(int value) const { return *this - LongInteger(value); }
 
-// 3) int ± LongInteger (дружественные)
 LongInteger operator+(int value, const LongInteger& li) { return LongInteger(value) + li; }
 LongInteger operator-(int value, const LongInteger& li) { return LongInteger(value) - li; }
-
-// инкремент / декремент
 
 LongInteger& LongInteger::operator++() { *this = *this + 1; return *this; }
 LongInteger  LongInteger::operator++(int) { LongInteger tmp(*this); ++(*this); return tmp; }
 LongInteger& LongInteger::operator--() { *this = *this - 1; return *this; }
 LongInteger  LongInteger::operator--(int) { LongInteger tmp(*this); --(*this); return tmp; }
-
-// сравнения
 
 bool LongInteger::operator==(const LongInteger& o) const {
   if (negative != o.negative) return false;
@@ -180,20 +163,18 @@ bool LongInteger::operator==(const LongInteger& o) const {
 }
 bool LongInteger::operator!=(const LongInteger& o) const { return !(*this == o); }
 bool LongInteger::operator<(const LongInteger& o) const {
-  if (negative != o.negative) return negative; // отрицательное < положительного
+  if (negative != o.negative) return negative;
   int cmp = cmpAbs(digits, size, o.digits, o.size);
   return negative ? (cmp > 0) : (cmp < 0);
 }
 bool LongInteger::operator<=(const LongInteger& o) const { return !(o < *this); }
-bool LongInteger::operator>(const LongInteger& o) const { return o < *this; }
+bool LongInteger::operator> (const LongInteger& o) const { return o < *this; }
 bool LongInteger::operator>=(const LongInteger& o) const { return !(*this < o); }
 
-// << и >>
-
 ostream& operator<<(ostream& os, const LongInteger& li) {
-  if (li.negative) os << '-';
-  for (int i = li.size - 1; i >= 0; i--)
-    os << li.digits[i];
+  if (li.isNegative()) os << '-';
+  for (int i = li.getSize() - 1; i >= 0; i--)
+    os << li.getDigit(i);
   return os;
 }
 

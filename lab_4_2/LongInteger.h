@@ -7,7 +7,7 @@
 class LongInteger {
 private:
   int size;
-  int* digits; 
+  int* digits;
   bool negative;
 
   void removeLeadingZeros();
@@ -21,6 +21,10 @@ public:
 
   void print() const;
   void set(const std::string& s);
+
+  int getSize() const { return size; }
+  int getDigit(int i) const { return digits[i]; }
+  bool isNegative() const { return negative; }
 
   LongInteger& operator=(const LongInteger& other);
 
@@ -41,12 +45,12 @@ public:
   bool operator<=(const LongInteger& other) const;
   bool operator> (const LongInteger& other) const;
   bool operator>=(const LongInteger& other) const;
-
-  friend std::ostream& operator<<(std::ostream& os, const LongInteger& li);
-  friend std::istream& operator>>(std::istream& is, LongInteger& li);
-
-  friend LongInteger operator+(int value, const LongInteger& li);
-  friend LongInteger operator-(int value, const LongInteger& li);
 };
+
+std::ostream& operator<<(std::ostream& os, const LongInteger& li);
+std::istream& operator>>(std::istream& is, LongInteger& li);
+
+LongInteger operator+(int value, const LongInteger& li);
+LongInteger operator-(int value, const LongInteger& li);
 
 #endif
