@@ -81,29 +81,31 @@ bool Triangle::isSimilar(const Triangle& other) const {
   return fabs(k1 - k2) < 1e-6 && fabs(k2 - k3) < 1e-6;
 }
 
-bool Triangle::operator<(const Triangle& other) const {
-  return this->area() < other.area();
-}
-
-bool Triangle::operator<=(const Triangle& other) const {
-  return this->area() <= other.area();
-}
-
-bool Triangle::operator>(const Triangle& other) const {
-  return this->area() > other.area();
-}
-
-bool Triangle::operator>=(const Triangle& other) const {
-  return this->area() >= other.area();
-}
-
 bool Triangle::operator==(const Triangle& other) const {
-  return fabs(this->area() - other.area()) < 1e-6;
+  return fabs(this->area() - other.area()) < 1e-6 && this->isSimilar(other);
 }
+
 
 bool Triangle::operator!=(const Triangle& other) const {
   return !(*this == other);
 }
+
+bool Triangle::operator<(const Triangle& other) const {
+  return this->area() < other.area();
+}
+
+bool Triangle::operator>(const Triangle& other) const {
+  return other < *this;
+}
+
+bool Triangle::operator<=(const Triangle& other) const {
+  return !(*this > other);
+}
+
+bool Triangle::operator>=(const Triangle& other) const {
+  return !(*this < other);
+}
+
 
 Triangle Triangle::operator*(double k) const {
   return Triangle(a * k, b * k, c * k);
