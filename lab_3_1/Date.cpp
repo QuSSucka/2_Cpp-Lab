@@ -5,7 +5,6 @@
 #include <iostream>
 #include <ctime>
 
-
 using namespace std;
 
 bool Date::isLeap(int y) const {
