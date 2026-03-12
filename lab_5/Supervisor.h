@@ -3,12 +3,12 @@
 
 class Supervisor : public Manager {
 public:
-  Supervisor(const string& lastName,
-    const string& firstName,
+  Supervisor(const std::string& lastName,
+    const std::string& firstName,
     double salary,
     const Date& hireDate);
 
-  void evaluateManagers(vector<Manager*>& managers) const;
+  void evaluateManagers(std::vector<Manager*>& managers) const;
 
   void print() const override;
 };

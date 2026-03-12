@@ -5,8 +5,8 @@ using namespace std;
 int main() {
   setlocale(LC_ALL, "");
 
-  LongInteger a("123456789876543210123456789");
-  LongInteger b("987654321123456789");
+  LongInteger a;// ("");
+  LongInteger b;// ("");
 
   cout << "a = " << a << endl;
   cout << "b = " << b << endl;

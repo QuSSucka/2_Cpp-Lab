@@ -2,6 +2,8 @@
 #include <iostream>
 #include <stdexcept>
 
+using namespace std;
+
 int Employee::instanceCount = 0;
 
 Employee::Employee(const string& lastName,

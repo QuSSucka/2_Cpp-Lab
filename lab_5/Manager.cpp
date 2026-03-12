@@ -2,7 +2,8 @@
 #include <iostream>
 #include <stdexcept>
 
-// ---- Task ----
+using namespace std;
+
 Task::Task(Employee* emp, const string& desc, const Date& dl)
   : employee(emp), description(desc), deadline(dl), isDone(false)
 {
@@ -32,7 +33,6 @@ void Task::print() const {
   }
 }
 
-// ---- Manager ----
 Manager::Manager(const string& lastName,
   const string& firstName,
   const string& position,

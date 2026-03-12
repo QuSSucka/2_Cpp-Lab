@@ -1,12 +1,12 @@
 ﻿#include "Supervisor.h"
 
+using namespace std;
+
 Supervisor::Supervisor(const string& lastName,
   const string& firstName,
   double salary,
   const Date& hireDate)
-  : Manager(lastName, firstName, "Supervisor", salary, hireDate)
-{
-}
+  : Manager(lastName, firstName, "Supervisor", salary, hireDate){}
 
 void Supervisor::evaluateManagers(vector<Manager*>& managers) const {
   cout << "\n===== Оценка менеджеров Supervisor'ом "

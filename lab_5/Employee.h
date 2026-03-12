@@ -1,24 +1,25 @@
 ﻿#pragma once
+#include <iostream>
 #include <string>
 #include "Date.h"
 
 class Employee {
 private:
-  string     lastName;
-  string     firstName;
-  string     position;
-  double     salary;
-  Date       hireDate;
-  Date       fireDate;
-  bool       isFired;       // флаг: уволен ли сотрудник
-  const int  employeeID;
+  std::string lastName;
+  std::string firstName;
+  std::string position;
+  double salary;
+  Date hireDate;
+  Date fireDate;
+  bool isFired;
+  const int employeeID;
 
   static int instanceCount;
 
 public:
-  Employee(const string& lastName,
-    const string& firstName,
-    const string& position,
+  Employee(const std::string& lastName,
+    const std::string& firstName,
+    const std::string& position,
     double salary,
     const Date& hireDate);
 
@@ -27,26 +28,23 @@ public:
 
   virtual ~Employee();
 
-  // Геттеры
-  string getLastName()   const;
-  string getFirstName()  const;
-  string getPosition()   const;
-  double getSalary()     const;
-  Date   getHireDate()   const;
-  Date   getFireDate()   const;
-  bool   getIsFired()    const;
-  int    getEmployeeID() const;
+  std::string getLastName() const;
+  std::string getFirstName() const;
+  std::string getPosition() const;
+  double getSalary() const;
+  Date getHireDate() const;
+  Date getFireDate() const;
+  bool getIsFired() const;
+  int getEmployeeID() const;
 
   static int getInstanceCount();
 
-  // Сеттеры
-  void setLastName(const string& v);
-  void setFirstName(const string& v);
-  void setPosition(const string& v);
+  void setLastName(const std::string& v);
+  void setFirstName(const std::string& v);
+  void setPosition(const std::string& v);
   void setSalary(double v);
   void setHireDate(const Date& d);
 
-  // Уволить сотрудника
   void fire(const Date& d);
 
   virtual void print() const;

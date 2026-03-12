@@ -3,7 +3,9 @@
 
 #include "Date.h"
 #include <ctime>
-#include <stdexcept>
+#include <cmath>
+
+using namespace std;
 
 bool Date::isLeap(int y) const {
   return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
@@ -109,7 +111,7 @@ Date  Date::operator--(int) { Date t = *this; *this -= 1; return t; }
 bool Date::operator==(const Date& o) const { return day == o.day && month == o.month && year == o.year; }
 bool Date::operator!=(const Date& o) const { return !(*this == o); }
 bool Date::operator< (const Date& o) const {
-  if (year != o.year)   return year < o.year;
+  if (year != o.year)  return year < o.year;
   if (month != o.month) return month < o.month;
   return day < o.day;
 }
@@ -117,16 +119,20 @@ bool Date::operator> (const Date& o) const { return o < *this; }
 bool Date::operator<=(const Date& o) const { return !(*this > o); }
 bool Date::operator>=(const Date& o) const { return !(*this < o); }
 
+// operator<< — используем геттеры вместо приватных полей
 ostream& operator<<(ostream& os, const Date& d) {
-  if (d.day < 10) os << "0";
-  os << d.day << ".";
-  if (d.month < 10) os << "0";
-  os << d.month << "." << d.year;
+  if (d.getDay() < 10) os << "0";
+  os << d.getDay() << ".";
+  if (d.getMonth() < 10) os << "0";
+  os << d.getMonth() << "." << d.getYear();
   return os;
 }
 
+// operator>> — используем публичный конструктор из строки
 istream& operator>>(istream& is, Date& d) {
-  string s; is >> s;
-  Date tmp(s); d = tmp;
+  string s;
+  is >> s;
+  Date tmp(s);
+  d = tmp;
   return is;
 }
