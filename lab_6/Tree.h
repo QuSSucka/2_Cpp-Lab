@@ -1,76 +1,74 @@
-#pragma once
+﻿#pragma once
 #include "Collection.h"
 
 class Tree : public Collection {
 public:
-    struct Node {
-        double value;
-        Node*  left;
-        Node*  right;
-        Node(double v) : value(v), left(nullptr), right(nullptr) {}
-    };
+  struct Node {
+    double value;
+    Node* left;
+    Node* right;
+    Node(double v) : value(v), left(nullptr), right(nullptr) {}
+  };
 
 private:
-    Node* root;
+  Node* root;
 
-    Node* insert(Node* n, double val);
-    bool  findNode(Node* n, double val) const;
-    Node* minNode(Node* n) const;
-    Node* deleteNode(Node* n, double val, bool& ok);
-    void  destroy(Node* n);
+  Node* insert(Node* n, double val);
+  bool  findNode(Node* n, double val) const;
+  Node* minNode(Node* n) const;
+  Node* deleteNode(Node* n, double val, bool& ok);
+  void  destroy(Node* n);
 
 public:
-    Tree();
-    ~Tree() override;
+  Tree();
+  ~Tree() override;
 
-    void Add(double value)        override;
-    bool Find(double value) const override;
-    bool Delete(double value)     override;
-    void DeleteAll()              override;
+  void Add(double value)        override;
+  bool Find(double value) const override;
+  bool Delete(double value)     override;
+  void DeleteAll()              override;
 
-    Node* getRoot() const;
+  Node* getRoot() const;
 
-    // ── DFS-итератор (обход в глубину, in-order) ────────────────────────────
-    class DFSIterator : public Iterator {
-        Node** stack;
-        int    top, cap;
-        double curVal;
-        bool   valid;
+  class DFSIterator : public Iterator {
+    Node** stack;
+    int    top, cap;
+    double curVal;
+    bool   valid;
 
-        void   grow();
-        void   pushLeft(Node* n);
-        void   advance();
+    void   grow();
+    void   pushLeft(Node* n);
+    void   advance();
 
-    public:
-        explicit DFSIterator(Node* root);
-        ~DFSIterator();
-        double GetElem() const override;
-        bool   IsNext()  const override;
-        void   Next()          override;
-    };
+  public:
+    explicit DFSIterator(Node* root);
+    ~DFSIterator();
+    double GetElem() const override;
+    bool   IsNext()  const override;
+    void   Next()          override;
+  };
 
-    // ── BFS-итератор (обход в ширину, по уровням) ───────────────────────────
-    class BFSIterator : public Iterator {
-        Node** queue;
-        int    head, tail, cap;
-        double curVal;
-        bool   valid;
+  class BFSIterator : public Iterator {
+    Node** queue;
+    int    head, tail, cap;
+    double curVal;
+    bool   valid;
 
-        bool   empty()        const;
-        void   enqueue(Node* n);
-        Node*  dequeue();
-        void   advance();
+    bool   empty()        const;
+    void   enqueue(Node* n);
+    Node* dequeue();
+    void   advance();
 
-    public:
-        explicit BFSIterator(Node* root);
-        ~BFSIterator();
-        double GetElem() const override;
-        bool   IsNext()  const override;
-        void   Next()          override;
-    };
+  public:
+    explicit BFSIterator(Node* root);
+    ~BFSIterator();
+    double GetElem() const override;
+    bool   IsNext()  const override;
+    void   Next()          override;
+  };
 
-    Iterator* begin()    const override;   // DFS по умолчанию
-    Iterator* end()      const override;
-    Iterator* beginDFS() const;
-    Iterator* beginBFS() const;
+  Iterator* begin()    const override;
+  Iterator* end()      const override;
+  Iterator* beginDFS() const;
+  Iterator* beginBFS() const;
 };
