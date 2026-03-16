@@ -27,7 +27,6 @@ int main() {
   mgr2.completeTask(0, Date(9, 5, 2025)); // в срок
   mgr2.completeTask(1, Date(11, 5, 2025)); // в срок
 
-  // Пример увольнения сотрудника
   emp2.fire(Date(1, 9, 2024));
 
   Supervisor sup("Громов", "Виктор", 200000, Date(1, 1, 2015));

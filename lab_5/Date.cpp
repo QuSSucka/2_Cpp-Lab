@@ -119,7 +119,6 @@ bool Date::operator> (const Date& o) const { return o < *this; }
 bool Date::operator<=(const Date& o) const { return !(*this > o); }
 bool Date::operator>=(const Date& o) const { return !(*this < o); }
 
-// operator<< — используем геттеры вместо приватных полей
 ostream& operator<<(ostream& os, const Date& d) {
   if (d.getDay() < 10) os << "0";
   os << d.getDay() << ".";
@@ -128,7 +127,6 @@ ostream& operator<<(ostream& os, const Date& d) {
   return os;
 }
 
-// operator>> — используем публичный конструктор из строки
 istream& operator>>(istream& is, Date& d) {
   string s;
   is >> s;
