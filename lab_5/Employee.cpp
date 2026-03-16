@@ -62,3 +62,8 @@ void Employee::print() const {
   else
     cout << "Уволен:      Работает\n";
 }
+
+void Employee::printInfo(Employee* emp) const {
+  std::cout << "\n[Employee::printInfo]\n";
+  emp->print();
+}

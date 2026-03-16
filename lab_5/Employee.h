@@ -13,7 +13,6 @@ private:
   Date fireDate;
   bool isFired;
   const int employeeID;
-
   static int instanceCount;
 
 public:
@@ -36,7 +35,6 @@ public:
   Date getFireDate() const;
   bool getIsFired() const;
   int getEmployeeID() const;
-
   static int getInstanceCount();
 
   void setLastName(const std::string& v);
@@ -44,8 +42,8 @@ public:
   void setPosition(const std::string& v);
   void setSalary(double v);
   void setHireDate(const Date& d);
-
   void fire(const Date& d);
 
   virtual void print() const;
+  virtual void printInfo(Employee* emp) const;
 };

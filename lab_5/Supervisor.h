@@ -8,7 +8,8 @@ public:
     double salary,
     const Date& hireDate);
 
-  void evaluateManagers(std::vector<Manager*>& managers) const;
+  void evaluateManagers() const;
 
   void print() const override;
+  void printInfo(Employee* emp) const override;
 };

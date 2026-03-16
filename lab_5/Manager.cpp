@@ -82,3 +82,19 @@ void Manager::print() const {
     tasks[i].print();
   }
 }
+
+void Manager::printInfo(Employee* emp) const {
+  cout << "\n[printInfo]\n";
+
+  if (!emp) return;
+
+  Manager* mgr = dynamic_cast<Manager*>(emp);
+  if (mgr) {
+    cout << "=== Менеджер и его задачи ===\n";
+    mgr->print();
+  }
+  else {
+    cout << "=== Сотрудник ===\n";
+    emp->print();
+  }
+}

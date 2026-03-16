@@ -17,7 +17,7 @@ struct Task {
 };
 
 class Manager : public Employee {
-private:
+protected:
   std::vector<Task> tasks;
   double bonus;
 
@@ -38,4 +38,5 @@ public:
   const std::vector<Task>& getTasks() const;
 
   void print() const override;
+  void printInfo(Employee* emp) const override;
 };
