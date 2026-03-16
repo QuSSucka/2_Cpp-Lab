@@ -7,7 +7,7 @@ template<typename T>
 class Tree : public Collection<T> {
 public:
   struct Node {
-    T     value;
+    T value;
     Node* left;
     Node* right;
     Node(const T& v) : value(v), left(nullptr), right(nullptr) {}
@@ -38,7 +38,7 @@ private:
     else {
       ok = true;
       if (!n->left) { Node* r = n->right; delete n; return r; }
-      if (!n->right) { Node* l = n->left;  delete n; return l; }
+      if (!n->right) { Node* l = n->left; delete n; return l; }
       Node* mn = minNode(n->right);
       n->value = mn->value;
       bool dummy = false;
@@ -58,19 +58,19 @@ public:
   Tree(const Tree&) = delete;
   Tree& operator=(const Tree&) = delete;
 
-  void Add(const T& value)        override { root = insert(root, value); }
+  void Add(const T& value) override { root = insert(root, value); }
   bool Find(const T& value) const override { return findNode(root, value); }
-  bool Delete(const T& value)     override {
+  bool Delete(const T& value) override {
     bool ok = false; root = deleteNode(root, value, ok); return ok;
   }
   void  DeleteAll() override { destroy(root); root = nullptr; }
-  Node* getRoot()   const { return root; }
+  Node* getRoot() const { return root; }
 
   class DFSIterator : public Iterator<T> {
     Node** stack;
-    int    top, cap;
-    T      curVal;
-    bool   valid;
+    int top, cap;
+    T curVal;
+    bool valid;
 
     void grow() {
       cap *= 2; Node** ns = new Node * [cap];
@@ -92,19 +92,19 @@ public:
     }
     ~DFSIterator() { delete[] stack; }
 
-    T    GetElem() const override {
+    T GetElem() const override {
       if (!valid) throw std::out_of_range("DFSIterator: no element");
       return curVal;
     }
     bool IsNext() const override { return valid; }
-    void Next()         override { advance(); }
+    void Next() override { advance(); }
   };
 
   class BFSIterator : public Iterator<T> {
     Node** queue;
-    int    head, tail, cap;
-    T      curVal;
-    bool   valid;
+    int head, tail, cap;
+    T curVal;
+    bool valid;
 
     bool  isEmpty()        const { return head == tail; }
     void  enqueue(Node* n) {
@@ -128,16 +128,16 @@ public:
     }
     ~BFSIterator() { delete[] queue; }
 
-    T    GetElem() const override {
+    T GetElem() const override {
       if (!valid) throw std::out_of_range("BFSIterator: no element");
       return curVal;
     }
     bool IsNext() const override { return valid; }
-    void Next()         override { advance(); }
+    void Next() override { advance(); }
   };
 
-  Iterator<T>* begin()    const override { return new DFSIterator(root); }
-  Iterator<T>* end()      const override { return new DFSIterator(nullptr); }
+  Iterator<T>* begin() const override { return new DFSIterator(root); }
+  Iterator<T>* end() const override { return new DFSIterator(nullptr); }
   Iterator<T>* beginDFS() const { return new DFSIterator(root); }
   Iterator<T>* beginBFS() const { return new BFSIterator(root); }
 };

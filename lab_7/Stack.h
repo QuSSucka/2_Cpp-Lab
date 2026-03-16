@@ -6,12 +6,12 @@ template<typename T>
 class Stack : public Collection<T> {
 private:
   struct Node {
-    T     value;
+    T value;
     Node* next;
     Node(const T& v, Node* n = nullptr) : value(v), next(n) {}
   };
   Node* topNode;
-  int   size;
+  int size;
 
 public:
   Stack() : topNode(nullptr), size(0) {}
@@ -59,9 +59,9 @@ public:
       return current->value;
     }
     bool IsNext() const override { return current != nullptr; }
-    void Next()         override { if (current) current = current->next; }
+    void Next() override { if (current) current = current->next; }
   };
 
   Iterator<T>* begin() const override { return new StackIterator(topNode); }
-  Iterator<T>* end()   const override { return new StackIterator(nullptr); }
+  Iterator<T>* end() const override { return new StackIterator(nullptr); }
 };
