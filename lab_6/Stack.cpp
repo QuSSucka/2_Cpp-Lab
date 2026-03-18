@@ -17,21 +17,28 @@ bool Stack::Find(double value) const {
 }
 
 bool Stack::Delete(double value) {
-  Node* curr = topNode, * prev = nullptr;
+  Node* curr = topNode;
+  Node* prev = nullptr;
   while (curr) {
     if (curr->value == value) {
-      (prev ? prev->next : topNode) = curr->next;
+      if (prev) prev->next = curr->next;
+      else topNode = curr->next;
       delete curr;
       --size;
       return true;
     }
-    prev = curr; curr = curr->next;
+    prev = curr;
+    curr = curr->next;
   }
   return false;
 }
 
 void Stack::DeleteAll() {
-  while (topNode) { Node* t = topNode; topNode = topNode->next; delete t; }
+  while (topNode) {
+    Node* t = topNode;
+    topNode = topNode->next;
+    delete t;
+  }
   size = 0;
 }
 
@@ -46,4 +53,7 @@ double Stack::StackIterator::GetElem() const {
 }
 
 bool Stack::StackIterator::IsNext() const { return current != nullptr; }
-void Stack::StackIterator::Next() { if (current) current = current->next; }
+
+void Stack::StackIterator::Next() {
+  if (current) current = current->next;
+}

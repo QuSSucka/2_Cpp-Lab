@@ -12,6 +12,9 @@ private:
   Node* topNode;
   int size;
 
+  Stack(const Stack&) = delete;
+  Stack& operator=(const Stack&) = delete;
+
 public:
   Stack();
   ~Stack() override;
